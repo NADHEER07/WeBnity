@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>WEBRIX - AI Web Security</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#020617;
+color:white;
+}
+
+/* animated background */
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+border-bottom:1px solid #1e293b;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#38bdf8;
+cursor:pointer;
+}
+
+.nav-links a{
+margin-left:20px;
+color:white;
+text-decoration:none;
+font-size:18px;
+}
+
+/* glow hover */
+
+.logo:hover,
+.nav-links a:hover,
+.footer a:hover{
+
+color:#00e5ff;
+
+text-shadow:
+0 0 5px #00e5ff,
+0 0 10px #00e5ff,
+0 0 20px #00e5ff;
+
+transition:0.3s;
+}
+
+/* HERO */
+
+.hero{
+height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero h1{
+font-size:64px;
+}
+
+.hero span{
+color:#38bdf8;
+}
+
+.hero p{
+max-width:750px;
+color:#94a3b8;
+font-size:18px;
+}
+
+.hero-buttons{
+margin-top:40px;
+}
+
+.primary-btn{
+background:#0ea5e9;
+padding:15px 35px;
+border-radius:10px;
+text-decoration:none;
+color:white;
+margin-right:20px;
+}
+
+/* SECTION TITLES */
+
+.section-title{
+font-size:46px;
+font-weight:700;
+margin-bottom:20px;
+letter-spacing:1px;
+}
+
+/* FEATURES */
+
+.features{
+padding:100px 60px;
+text-align:center;
+}
+
+.feature-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+max-width:1200px;
+margin:auto;
+margin-top:60px;
+}
+
+.card{
+
+background:#020617;
+border:1px solid #1e293b;
+
+padding:35px;
+
+border-radius:20px;
+
+transition:0.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:
+0 0 10px #00e5ff,
+0 0 20px rgba(0,229,255,0.3);
+
+border-color:#00e5ff;
+
+}
+
+/* HOW WEBRIX WORKS */
+
+.webrix-works{
+padding:120px 40px;
+text-align:center;
+}
+
+.works-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+max-width:1200px;
+margin:auto;
+margin-top:60px;
+}
+
+/* ABOUT */
+
+.about-project{
+padding:120px 40px;
+text-align:center;
+}
+
+.about-box{
+max-width:900px;
+margin:auto;
+padding:50px;
+border:1px solid #1e293b;
+border-radius:20px;
+background:#020617;
+}
+
+/* FOOTER */
+
+.footer{
+margin-top:100px;
+padding:60px 40px;
+border-top:1px solid #1e293b;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:40px;
+max-width:1100px;
+margin:auto;
+}
+
+.footer a{
+color:#94a3b8;
+text-decoration:none;
+}
+
+.copyright{
+text-align:center;
+margin-top:40px;
+color:#94a3b8;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+🛡️ WeBrix
+</div>
+
+<div class="nav-links">
+
+<a href="/admin-login">
+Admin
+</a>
+
+<a href="https://github.com/NADHEER07" target="_blank">
+<i class="fab fa-github"></i>
+</a>
+
+<a href="https://www.linkedin.com/in/mohammed--nadheer/" target="_blank">
+<i class="fab fa-linkedin"></i>
+</a>
+
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>
+Agentic <span>Web Firewall</span> Security
+</h1>
+
+<p>
+
+Advanced protection against malicious traffic,
+DDoS attacks, SQL injections, and zero-day threats.
+Monitor and secure your infrastructure in real time.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="/home" class="primary-btn">
+Security Check
+</a>
+
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features">
+
+<h2 class="section-title">
+Enterprise-Grade Security Features
+</h2>
+
+<div class="feature-grid">
+
+<div class="card">
+<h3>📡 Real-Time Traffic Monitoring</h3>
+<p>Monitor incoming and outgoing network traffic with live dashboards.</p>
+</div>
+
+<div class="card">
+<h3>🚨 Intrusion Detection</h3>
+<p>AI-powered detection system identifies suspicious patterns.</p>
+</div>
+
+<div class="card">
+<h3>⛔ IP Blocking System</h3>
+<p>Automatically block malicious IP addresses.</p>
+</div>
+
+<div class="card">
+<h3>📊 Threat Analytics</h3>
+<p>Analyze attack trends and threat intelligence.</p>
+</div>
+
+<div class="card">
+<h3>📜 Security Logs</h3>
+<p>Detailed audit trails and security event logs.</p>
+</div>
+
+<div class="card">
+<h3>🛡 Attack Prevention</h3>
+<p>Defense against DDoS, XSS, SQL injection attacks.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- HOW WEBRIX WORKS -->
+
+<section class="webrix-works">
+
+<h2 class="section-title">
+How Webrix Works
+</h2>
+
+<div class="works-grid">
+
+<div class="card">
+
+<h3>Layer 1: Signature Detection</h3>
+
+<p>
+Incoming requests are validated against a database
+of known attack signatures for immediate detection.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Layer 2: AI Analysis</h3>
+
+<p>
+Requests that pass signature checks undergo machine learning
+analysis to detect unknown threats.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Validated Requests</h3>
+
+<p>
+Only requests that clear both security layers are allowed
+to reach the protected server.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="about-project">
+
+<h2 class="section-title">
+About The Project
+</h2>
+
+<div class="about-box">
+
+<p>
+
+<b>Webrix</b> is an intelligent <b>AI-powered Web Application Firewall (WAF)</b>
+developed to monitor, analyze, and protect web applications from modern
+cyber threats. The system acts as a security layer between users and
+the web server, inspecting every incoming request to detect and block
+malicious traffic before it reaches the application.
+
+</p>
+
+<p>
+
+The platform integrates <b>signature-based attack detection</b>,
+<b>machine learning analysis</b>, and <b>real-time traffic monitoring</b>
+to identify both known and unknown attack patterns such as
+<b>SQL Injection, Cross-Site Scripting (XSS), and automated intrusion attempts</b>.
+Suspicious requests are automatically flagged and malicious IP addresses
+can be blocked instantly through the firewall control system.
+
+</p>
+
+<p>
+
+Webrix also provides a powerful <b>Security Operations Center (SOC) dashboard</b>
+where administrators can visualize attack activity, monitor system logs,
+track threat intelligence, and manage firewall rules. The dashboard
+presents real-time analytics including attack sources, blocked requests,
+and security alerts, enabling faster response to potential threats.
+
+</p>
+
+<p>
+
+By combining <b>automated threat detection, intelligent traffic analysis,
+and centralized security monitoring</b>, Webrix delivers a scalable and
+enterprise-grade protection solution designed for modern web infrastructures.
+
+</p>
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-grid">
+
+<div>
+
+<h3>Contact</h3>
+
+<p>Email : lord2k41@gmail.com</p>
+
+<p>
+<a href="https://linkedin.com/in/lord2k41" target="_blank">
+LinkedIn Profile
+</a>
+</p>
+
+</div>
+
+<div>
+
+<h3>Security Notice</h3>
+
+<p>
+All system access is monitored and logged.
+Unauthorized access attempts will be tracked and reported.
+</p>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+© 2026 WEBRIX | AI-Powered Web Security |
+<a href="https://www.credly.com/users/nadheer" target="_blank">
+Nadheer™
+</a>
+
+</div>
+
+</footer>
+
+<script>
+
+particlesJS("particles-js",{
+
+particles:{
+
+number:{value:80},
+
+color:{value:"#38bdf8"},
+
+shape:{type:"circle"},
+
+opacity:{value:0.5},
+
+size:{value:3},
+
+line_linked:{
+enable:true,
+distance:150,
+color:"#38bdf8",
+opacity:0.3,
+width:1
+},
+
+move:{
+enable:true,
+speed:2
+}
+
+}
+
+})
+
+</script>
+
+</body>
+</html>

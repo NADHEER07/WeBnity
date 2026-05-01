@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Webrix SOC Dashboard</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="nav-left">
+<span class="logo">🛡️ Webrix SOC</span>
+</div>
+
+<div class="nav-right">
+<button onclick="toggleTheme()" class="neon-btn">🌙</button>
+<a href="/export-logs" class="neon-btn">Export</a>
+<a href="/logout" class="neon-btn">Logout</a>
+</div>
+
+</nav>
+
+<div id="alertBanner" class="alert-banner">
+🚨 SECURITY ALERT : Active Attacks Detected
+</div>
+
+<div class="dashboard">
+
+<div class="live-counter">
+🚨 LIVE ATTACKS DETECTED : <span id="attackCount">{{ blocked }}</span>
+</div>
+
+<div class="threat-level">
+Threat Level : <span id="threatLevel">LOW</span>
+</div>
+
+<!-- STATS -->
+
+<div class="stats-grid">
+
+<div class="stat-card">
+Total Requests<br>
+<span>{{ total }}</span>
+</div>
+
+<div class="stat-card">
+Blocked<br>
+<span>{{ blocked }}</span>
+</div>
+
+<div class="stat-card">
+Signature<br>
+<span>{{ signature }}</span>
+</div>
+
+<div class="stat-card">
+ML<br>
+<span>{{ ml }}</span>
+</div>
+
+</div>
+
+<!-- TOP ATTACKERS -->
+
+<div class="card">
+<h3>Top Attackers</h3>
+
+{% for ip,count in top_attackers %}
+<div class="ip-row">
+<span>{{ ip }}</span>
+<span>{{ count }} attacks</span>
+</div>
+{% endfor %}
+
+</div>
+
+<!-- CHART + MAP -->
+
+<div class="visual-row">
+
+<div class="card visual-card">
+<h3>Attack Analytics</h3>
+<canvas id="attackChart"></canvas>
+</div>
+
+<div class="card visual-card">
+<h3>🌍 Attack Map</h3>
+<div id="map"></div>
+</div>
+
+</div>
+
+<!-- FIREWALL -->
+
+<div class="bottom-row">
+
+<div class="card">
+<h3>Manual Firewall Block</h3>
+
+<form action="/manual-block" method="POST" class="block-ip-form">
+
+<input type="text" name="ip" placeholder="Enter IP to block" required>
+
+<button type="submit" class="danger-btn">Block IP</button>
+
+</form>
+
+</div>
+
+<div class="card">
+
+<h3>Blocked IPs</h3>
+
+<input type="text" id="ipSearch" placeholder="Search blocked IP...">
+
+{% for ip in blocked_ips %}
+<div class="ip-row">
+<span>{{ ip }}</span>
+<a href="/unblock/{{ ip }}" class="danger-btn">Unblock</a>
+</div>
+{% endfor %}
+
+</div>
+
+</div>
+
+<!-- ATTACK STREAM + RECENT LOGS -->
+
+<div class="bottom-row">
+
+<div class="card">
+
+<h3>Live Attack Stream</h3>
+
+<div class="attack-console" id="attackConsole">
+
+> Monitoring traffic...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Recent Security Events</h3>
+
+<div class="logs-container">
+
+{% for log in logs[:20] %}
+<div class="log-row">
+{{ log }}
+</div>
+{% endfor %}
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ATTACK TIMELINE -->
+
+<div class="card">
+
+<h3>Attack Timeline</h3>
+
+<canvas id="timelineChart"></canvas>
+
+</div>
+
+</div>
+
+<script>
+
+function toggleTheme(){
+document.body.classList.toggle("light-mode")
+}
+
+/* PIE CHART */
+
+new Chart(document.getElementById('attackChart'),{
+
+type:'pie',
+
+data:{
+labels:['Signature','ML','Valid'],
+datasets:[{
+data:[{{ signature }},{{ ml }},{{ total - blocked }}],
+backgroundColor:['#ff3b3b','#ff9900','#00ff99']
+}]
+}
+
+})
+
+/* TIMELINE */
+
+new Chart(document.getElementById("timelineChart"),{
+
+type:"line",
+
+data:{
+labels:["1","2","3","4","5"],
+datasets:[{
+label:"Attack Events",
+data:[2,4,1,5,3],
+borderColor:"red",
+backgroundColor:"rgba(255,0,0,0.2)",
+fill:true
+}]
+}
+
+})
+
+/* MAP */
+
+var map=L.map('map',{center:[20,0],zoom:2})
+
+L.tileLayer(
+'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+).addTo(map)
+
+const attacks={{ attack_locations|tojson }}
+
+attacks.forEach(a=>{
+
+var circle=L.circle([a.lat,a.lon],{
+
+color:"red",
+fillColor:"orange",
+fillOpacity:0.8,
+radius:250000
+
+}).addTo(map)
+
+circle.bindPopup("⚠ Attack Origin : "+a.country)
+
+})
+
+/* SEARCH BLOCKED IP */
+
+document.getElementById("ipSearch").addEventListener("keyup",function(){
+
+let value=this.value.toLowerCase()
+
+document.querySelectorAll(".ip-row").forEach(row=>{
+
+row.style.display=row.innerText.toLowerCase().includes(value)?"flex":"none"
+
+})
+
+})
+
+/* ALERT */
+
+if({{ blocked }}>0){
+document.getElementById("alertBanner").style.display="block"
+}
+
+/* THREAT LEVEL */
+
+function updateThreat(){
+
+let attacks=parseInt(document.getElementById("attackCount").innerText)
+
+let level=document.getElementById("threatLevel")
+
+if(attacks<=5){level.innerText="LOW 🟢"}
+else if(attacks<=15){level.innerText="MEDIUM 🟡"}
+else{level.innerText="HIGH 🔴"}
+
+}
+
+updateThreat()
+
+/* LIVE ATTACK STREAM */
+
+function loadAttacks(){
+
+fetch("/live-attacks")
+
+.then(res => res.json())
+
+.then(data => {
+
+let box = document.getElementById("attackConsole")
+
+box.innerHTML=""
+
+data.logs.forEach(log => {
+
+box.innerHTML += "<div>> " + log + "</div>"
+
+})
+
+})
+
+}
+
+setInterval(loadAttacks,2000)
+
+loadAttacks()
+</script>
+
+</body>
+</html>
